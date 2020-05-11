@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.2em;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    list-style: none;
+    user-select: none;
+    text-decoration: none;
+    appearance: none;
+    background: none;
+    box-shadow: none;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-container {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
