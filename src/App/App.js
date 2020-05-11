@@ -1,19 +1,21 @@
 const React = require('react');
 const styles = require('./styles');
 
+const CAST_NAMESPACE = 'urn:x-cast:com.stremio';
+
 const App = () => {
     const context = React.useMemo(() => {
         return cast.framework.CastReceiverContext.getInstance();
     }, []);
     React.useEffect(() => {
         const onCustomMessage = (event) => {
-            context.sendCustomMessage('urn:x-cast:com.stremio', undefined, event);
+            context.sendCustomMessage(CAST_NAMESPACE, undefined, event);
         };
-        context.addCustomMessageListener('urn:x-cast:com.stremio', onCustomMessage);
+        context.addCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
         context.setLoggerLevel(process.env.DEBUG ? cast.framework.LoggerLevel.DEBUG : cast.framework.LoggerLevel.NONE);
         context.start();
         return () => {
-            context.removeCustomMessageListener('urn:x-cast:com.stremio', onCustomMessage);
+            context.removeCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
             context.stop();
         };
     }, []);
