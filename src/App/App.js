@@ -2,7 +2,7 @@ const React = require('react');
 const styles = require('./styles');
 const { HTMLVideo, withHTMLSubtitles, withStreamingServer } = require('stremio-video');
 
-const CAST_NAMESPACE = 'urn:x-cast:com.stremio';
+const CHROMECAST_NAMESPACE = 'urn:x-cast:com.stremio';
 const Video = withHTMLSubtitles(withStreamingServer(HTMLVideo));
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
         const context = cast.framework.CastReceiverContext.getInstance();
         const video = new Video({ containerElement: videoElementRef.current });
         const emit = (args) => {
-            context.sendCustomMessage(CAST_NAMESPACE, undefined, args);
+            context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, args);
         };
         const dispatch = (args) => {
             try {
@@ -35,12 +35,12 @@ const App = () => {
         video.on('propChanged', (propName, propValue) => {
             emit({ event: 'propChanged', args: [propName, propValue] });
         });
-        context.addCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
+        context.addCustomMessageListener(CHROMECAST_NAMESPACE, onCustomMessage);
         context.setLoggerLevel(process.env.DEBUG ? cast.framework.LoggerLevel.DEBUG : cast.framework.LoggerLevel.NONE);
         context.start();
         return () => {
             dispatch({ commandName: 'destroy' });
-            context.removeCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
+            context.removeCustomMessageListener(CHROMECAST_NAMESPACE, onCustomMessage);
             context.stop();
         };
     }, []);
