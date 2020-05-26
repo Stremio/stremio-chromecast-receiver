@@ -1,27 +1,52 @@
 const React = require('react');
 const styles = require('./styles');
+const { HTMLVideo, withHTMLSubtitles, withStreamingServer } = require('stremio-video');
 
 const CAST_NAMESPACE = 'urn:x-cast:com.stremio';
+const Video = withHTMLSubtitles(withStreamingServer(HTMLVideo));
 
 const App = () => {
-    const context = React.useMemo(() => {
-        return cast.framework.CastReceiverContext.getInstance();
-    }, []);
+    const videoElementRef = React.useRef(null);
     React.useEffect(() => {
-        const onCustomMessage = (event) => {
-            context.sendCustomMessage(CAST_NAMESPACE, undefined, event);
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const video = new Video({ containerElement: videoElementRef.current });
+        const emit = (args) => {
+            context.sendCustomMessage(CAST_NAMESPACE, undefined, args);
         };
+        const dispatch = (args) => {
+            try {
+                video.dispatch(args);
+            } catch (error) {
+                console.error(video.constructor.manifest.name, error);
+            }
+        };
+        const onCustomMessage = (event) => {
+            dispatch(event.data);
+        };
+        video.on('ended', () => {
+            emit({ event: 'ended' });
+        });
+        video.on('error', (error) => {
+            emit({ event: 'error', args: [error] });
+        });
+        video.on('propValue', (propName, propValue) => {
+            emit({ event: 'propValue', args: [propName, propValue] });
+        });
+        video.on('propChanged', (propName, propValue) => {
+            emit({ event: 'propChanged', args: [propName, propValue] });
+        });
         context.addCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
         context.setLoggerLevel(process.env.DEBUG ? cast.framework.LoggerLevel.DEBUG : cast.framework.LoggerLevel.NONE);
         context.start();
         return () => {
+            dispatch({ commandName: 'destroy' });
             context.removeCustomMessageListener(CAST_NAMESPACE, onCustomMessage);
             context.stop();
         };
     }, []);
     return (
         <div className={styles['video-container']}>
-            HI
+            <div ref={videoElementRef} className={styles['video']} />
         </div>
     );
 };
