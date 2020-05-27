@@ -14,7 +14,7 @@
 		"prop-types": "15.7.2",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
-		"stremio-video": "git+ssh://git@github.com/Stremio/stremio-video.git#8fcd6420365dfc4ca1d10ed02cc497b47f87f3c8"
+		"stremio-video": "git+ssh://git@github.com/Stremio/stremio-video.git#783d3f77c9e6cba6e35056f3db6af234514a90b2"
 	},
 	"devDependencies": {
 		"@babel/core": "7.10.0",
