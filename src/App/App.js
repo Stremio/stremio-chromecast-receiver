@@ -1,6 +1,6 @@
 const React = require('react');
 const styles = require('./styles');
-const { HTMLVideo, withHTMLSubtitles, withStreamingServer } = require('stremio-video');
+const { HTMLVideo, withHTMLSubtitles, withStreamingServer } = require('@stremio/stremio-video');
 
 const CHROMECAST_NAMESPACE = 'urn:x-cast:com.stremio';
 const Video = withHTMLSubtitles(withStreamingServer(HTMLVideo));
