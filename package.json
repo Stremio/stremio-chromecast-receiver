@@ -3,7 +3,6 @@
 	"version": "0.0.1",
 	"publisher": "Smart Code Ltd.",
 	"website": "www.stremio.com",
-	"private": true,
 	"license": "MIT",
 	"scripts": {
 		"start": "webpack-dev-server --mode development",
