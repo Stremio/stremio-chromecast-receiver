@@ -46,6 +46,44 @@ module.exports = (env, argv) => ({
                                 localIdentName: '[local]'
                             }
                         }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss-id',
+                            plugins: () => [
+                                require('cssnano')({
+                                    preset: [
+                                        'advanced',
+                                        {
+                                            autoprefixer: {
+                                                add: true,
+                                                remove: true,
+                                                flexbox: false,
+                                                grid: false
+                                            },
+                                            cssDeclarationSorter: true,
+                                            calc: false,
+                                            colormin: false,
+                                            convertValues: false,
+                                            discardComments: {
+                                                removeAll: true,
+                                            },
+                                            discardOverridden: false,
+                                            mergeIdents: false,
+                                            normalizeDisplayValues: false,
+                                            normalizePositions: false,
+                                            normalizeRepeatStyle: false,
+                                            normalizeUnicode: false,
+                                            normalizeUrl: false,
+                                            reduceIdents: false,
+                                            reduceInitial: false,
+                                            zindex: false
+                                        }
+                                    ]
+                                })
+                            ]
+                        }
                     }
                 ]
             }
