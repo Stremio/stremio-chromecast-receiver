@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const pachageJson = require('./package.json');
 
 module.exports = (env, argv) => ({
@@ -96,6 +97,24 @@ module.exports = (env, argv) => ({
         host: '0.0.0.0',
         hot: false,
         inline: false
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                test: /\.js$/,
+                extractComments: false,
+                terserOptions: {
+                    ecma: 6,
+                    mangle: false,
+                    warnings: false,
+                    output: {
+                        comments: false,
+                        beautify: false,
+                        wrap_iife: true
+                    }
+                }
+            })
+        ]
     },
     plugins: [
         new webpack.EnvironmentPlugin({
