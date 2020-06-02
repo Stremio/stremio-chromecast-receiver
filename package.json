@@ -8,6 +8,10 @@
         "url": "https://stremio.com"
     },
 	"license": "MIT",
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/stremio/stremio-chromecast-receiver.git"
+    },
 	"scripts": {
 		"start": "webpack-dev-server --mode development",
 		"build": "webpack --mode production"
