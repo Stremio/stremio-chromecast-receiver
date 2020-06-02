@@ -1,6 +1,7 @@
 {
 	"name": "stremio-chromecast-receiver",
 	"version": "0.0.3",
+    "description": "Chromecast Receiver application for Stremio",
 	"publisher": "Smart Code Ltd.",
 	"website": "www.stremio.com",
 	"license": "MIT",
