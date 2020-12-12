@@ -23,11 +23,17 @@ const App = () => {
         const onCustomMessage = (event) => {
             dispatch(event.data);
         };
-        video.on('ended', () => {
-            emit({ event: 'ended' });
+        video.on('extraSubtitlesTrackLoaded', (track) => {
+            emit({ event: 'extraSubtitlesTrackLoaded', args: [track] });
+        });
+        video.on('subtitlesTrackLoaded', (track) => {
+            emit({ event: 'subtitlesTrackLoaded', args: [track] });
         });
         video.on('error', (error) => {
             emit({ event: 'error', args: [error] });
+        });
+        video.on('ended', () => {
+            emit({ event: 'ended' });
         });
         video.on('propValue', (propName, propValue) => {
             emit({ event: 'propValue', args: [propName, propValue] });
