@@ -123,9 +123,11 @@ module.exports = (env, argv) => ({
             ...env
         }),
         new webpack.ProgressPlugin(),
-        new CopyWebpackPlugin([
-            { from: 'images', to: 'images' }
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'images', to: 'images' }
+            ]
+        }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
             inject: false
