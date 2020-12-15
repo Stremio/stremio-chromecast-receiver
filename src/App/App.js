@@ -16,7 +16,15 @@ const App = () => {
             containerElement: videoElementRef.current
         });
         const emit = (args) => {
-            context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, args);
+            context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, JSON.stringify(args, (_, value) => {
+                if (value instanceof Error) {
+                    return {
+                        message: value.message,
+                        stack: value.stack
+                    };
+                }
+                return value;
+            }));
         };
         const dispatch = (args) => {
             try {
