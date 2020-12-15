@@ -35,16 +35,37 @@ body {
     height: 100%;
 }
 
-.video-container {
+.app-container {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.app-container .layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.app-container .layer.video-layer .video {
     width: 100%;
     height: 100%;
 }
 
-.video-container .video {
-    width: 100%;
-    height: 100%;
-}
-
-.video-container .video * {
+.app-container .layer.video-layer .video * {
     font-size: inherit;
+}
+
+.app-container .layer.info-layer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
 }
