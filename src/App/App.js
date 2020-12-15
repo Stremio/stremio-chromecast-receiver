@@ -32,9 +32,20 @@ const App = () => {
                 return value;
             }));
         };
-        const dispatch = (args) => {
+        const dispatch = (action) => {
             try {
-                video.dispatch(args);
+                if (action && action.type === 'command' && action.commandName === 'load' && action.commandArgs) {
+                    video.dispatch({
+                        ...action,
+                        commandArgs: {
+                            ...action.commandArgs,
+                            audioChannels: 2
+                        }
+                    });
+                    return;
+                }
+
+                video.dispatch(action);
             } catch (error) {
                 console.error('StremioVideo', error);
             }
