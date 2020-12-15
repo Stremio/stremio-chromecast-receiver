@@ -23,6 +23,12 @@ const App = () => {
                         stack: value.stack
                     };
                 }
+                if (value instanceof MediaError) {
+                    return {
+                        message: value.message,
+                        code: value.code
+                    };
+                }
                 return value;
             }));
         };
