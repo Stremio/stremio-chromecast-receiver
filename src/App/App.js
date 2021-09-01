@@ -1,7 +1,6 @@
 const React = require('react');
 const classnames = require('classnames');
 const { StremioVideo } = require('@stremio/stremio-video');
-const selectVideoImplementation = require('./selectVideoImplementation');
 const styles = require('./styles');
 
 const CHROMECAST_NAMESPACE = 'urn:x-cast:com.stremio';
@@ -12,7 +11,6 @@ const App = () => {
     React.useEffect(() => {
         const context = cast.framework.CastReceiverContext.getInstance();
         const video = new StremioVideo({
-            selectVideoImplementation,
             containerElement: videoElementRef.current
         });
         const emit = (args) => {

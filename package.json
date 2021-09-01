@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "@babel/runtime": "7.10.0",
-        "@stremio/stremio-video": "0.0.7",
+        "@stremio/stremio-video": "git://github.com/Stremio/stremio-video.git#09d96bbad21196e4b612a2bda4cc7f3063e220e1",
         "classnames": "2.2.6",
         "prop-types": "15.7.2",
         "react": "16.13.1",
