@@ -42,10 +42,7 @@ module.exports = (env, argv) => ({
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            esModule: false,
-                            modules: {
-                                namedExport: false
-                            }
+                            esModule: false
                         }
                     },
                     {
@@ -133,9 +130,8 @@ module.exports = (env, argv) => ({
     },
     devServer: {
         host: '0.0.0.0',
-        contentBase: false,
+        static: false,
         hot: false,
-        inline: false,
         https: true,
         liveReload: false
     },
