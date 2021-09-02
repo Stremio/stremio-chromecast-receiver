@@ -37,6 +37,7 @@ const App = () => {
                         ...action,
                         commandArgs: {
                             ...action.commandArgs,
+                            chromecastTransport: null,
                             audioChannels: 2
                         }
                     });
