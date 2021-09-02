@@ -96,7 +96,7 @@ const App = () => {
             {
                 !loaded ?
                     <div className={classnames(styles['layer'], styles['info-layer'])}>
-                        Stremio Chromecast Receiver v{process.env.VERSION}{'\n'}{process.env.COMMIT_HASH}
+                        Stremio Chromecast Receiver v{process.env.VERSION}
                     </div>
                     :
                     null
