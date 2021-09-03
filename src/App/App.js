@@ -96,7 +96,8 @@ const App = () => {
             {
                 !loaded ?
                     <div className={classnames(styles['layer'], styles['info-layer'])}>
-                        Stremio Chromecast Receiver v{process.env.VERSION}
+                        <img className={styles['logo']} src={require('/images/stremio_symbol.png')} alt={' '} loading={'lazy'} />
+                        <div className={styles['label']}>Stremio Chromecast Receiver v{process.env.VERSION}</div>
                     </div>
                     :
                     null
