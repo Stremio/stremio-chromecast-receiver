@@ -181,6 +181,7 @@ module.exports = (env, argv) => ({
         new HtmlWebPackPlugin({
             template: './src/index.html',
             inject: false,
+            scriptLoading: 'blocking',
             faviconsPath: `${COMMIT_HASH}/favicons`
         })
     ]
