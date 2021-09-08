@@ -106,7 +106,7 @@ module.exports = (env, argv) => ({
                     esModule: false,
                     name: '[name].[ext]',
                     outputPath: `${COMMIT_HASH}/fonts`,
-                    publicPath: `/${COMMIT_HASH}/fonts`
+                    publicPath: `${COMMIT_HASH}/fonts`
                 }
             },
             {
@@ -117,7 +117,7 @@ module.exports = (env, argv) => ({
                     esModule: false,
                     name: '[name].[ext]',
                     outputPath: `${COMMIT_HASH}/images`,
-                    publicPath: `/${COMMIT_HASH}/images`
+                    publicPath: `${COMMIT_HASH}/images`
                 }
             },
         ]
