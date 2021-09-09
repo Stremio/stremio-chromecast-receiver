@@ -9,10 +9,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const pachageJson = require('./package.json');
 
 const COMMIT_HASH = execSync('git rev-parse HEAD').toString().trim();
-const PUBLIC_PATH = {
-    production: 'https://stremio.github.io/stremio-chromecast-receiver/',
-    development: '/'
-};
 
 module.exports = (env, argv) => ({
     mode: argv.mode,
@@ -105,25 +101,19 @@ module.exports = (env, argv) => ({
             {
                 test: /\.ttf$/,
                 exclude: /node_modules/,
-                loader: 'file-loader',
-                options: {
-                    esModule: false,
-                    name: '[name].[ext]',
-                    outputPath: `${COMMIT_HASH}/fonts`,
-                    publicPath: `${PUBLIC_PATH[argv.mode]}${COMMIT_HASH}/fonts`
+                type: 'asset/resource',
+                generator: {
+                    filename: `${COMMIT_HASH}/fonts/[hash][name][ext][query]`
                 }
             },
             {
                 test: /\.(png|jpe?g)$/,
                 exclude: /node_modules/,
-                loader: 'file-loader',
-                options: {
-                    esModule: false,
-                    name: '[name].[ext]',
-                    outputPath: `${COMMIT_HASH}/images`,
-                    publicPath: `${PUBLIC_PATH[argv.mode]}${COMMIT_HASH}/images`
+                type: 'asset/resource',
+                generator: {
+                    filename: `${COMMIT_HASH}/images/[hash][name][ext][query]`
                 }
-            },
+            }
         ]
     },
     resolve: {
