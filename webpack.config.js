@@ -103,7 +103,7 @@ module.exports = (env, argv) => ({
                 exclude: /node_modules/,
                 type: 'asset/resource',
                 generator: {
-                    filename: `${COMMIT_HASH}/fonts/[hash][name][ext][query]`
+                    filename: `${COMMIT_HASH}/fonts/[name][ext][query]`
                 }
             },
             {
@@ -111,7 +111,7 @@ module.exports = (env, argv) => ({
                 exclude: /node_modules/,
                 type: 'asset/resource',
                 generator: {
-                    filename: `${COMMIT_HASH}/images/[hash][name][ext][query]`
+                    filename: `${COMMIT_HASH}/images/[name][ext][query]`
                 }
             }
         ]
