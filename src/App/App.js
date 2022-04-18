@@ -74,7 +74,7 @@ const App = () => {
             emit({ event: 'subtitlesTrackLoaded', args: [track] });
         });
         video.on('audioTrackLoaded', (track) => {
-            emit('audioTrackLoaded', track);
+            emit({ event: 'audioTrackLoaded', args: [track] });
         });
         video.on('extraSubtitlesTrackLoaded', (track) => {
             emit({ event: 'extraSubtitlesTrackLoaded', args: [track] });
