@@ -84,7 +84,10 @@ const App = () => {
         });
         context.addCustomMessageListener(CHROMECAST_NAMESPACE, onCustomMessage);
         context.setLoggerLevel(process.env.DEBUG ? cast.framework.LoggerLevel.DEBUG : cast.framework.LoggerLevel.NONE);
-        context.start();
+        const options = new cast.framework.CastReceiverOptions();
+        options.disableIdleTimeout = true;
+        options.mediaElement = videoElementRef.current;
+        context.start(options);
         return () => {
             dispatch({ commandName: 'destroy' });
             context.removeCustomMessageListener(CHROMECAST_NAMESPACE, onCustomMessage);
