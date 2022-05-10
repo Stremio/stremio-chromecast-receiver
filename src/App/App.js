@@ -10,7 +10,7 @@ const App = () => {
     const [loaded, setLoaded] = React.useState(false);
     React.useEffect(() => {
         const context = cast.framework.CastReceiverContext.getInstance();
-        const video = new StremioVideo({ containerElement: videoElementRef.current });
+        const video = new StremioVideo();
         const emit = (args) => {
             context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, JSON.stringify(args, (_, value) => {
                 if (value instanceof Error) {
@@ -35,9 +35,10 @@ const App = () => {
                         ...action,
                         commandArgs: {
                             ...action.commandArgs,
-                            chromecastTransport: null,
                             audioChannels: 2
                         }
+                    }, {
+                        containerElement: videoElementRef.current
                     });
                     return;
                 }
