@@ -4,6 +4,7 @@ const StremioVideo = require('@stremio/stremio-video');
 const styles = require('./styles');
 
 const CHROMECAST_NAMESPACE = 'urn:x-cast:com.stremio';
+const CHUNK_SIZE = 5000;
 
 const App = () => {
     const videoElementRef = React.useRef(null);
@@ -12,7 +13,7 @@ const App = () => {
         const context = cast.framework.CastReceiverContext.getInstance();
         const video = new StremioVideo();
         const emit = (args) => {
-            context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, JSON.stringify(args, (_, value) => {
+            const serializedMessage = JSON.stringify(args, (_, value) => {
                 if (value instanceof Error) {
                     return {
                         message: value.message,
@@ -26,7 +27,21 @@ const App = () => {
                     };
                 }
                 return value;
-            }));
+            });
+            const chunksCount = Math.ceil(serializedMessage.length / CHUNK_SIZE);
+            const chunks = [];
+            for (let i = 0; i < chunksCount; i++) {
+                const start = i * CHUNK_SIZE;
+                const chunk = serializedMessage.slice(start, start + CHUNK_SIZE);
+                chunks.push(chunk);
+            }
+
+            chunks.map((chunk, index) => {
+                context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, JSON.stringify({
+                    chunk,
+                    end: index === chunks.length - 1,
+                }));
+            });
         };
         const dispatch = (action) => {
             try {
@@ -48,8 +63,15 @@ const App = () => {
                 console.error('StremioVideo', error);
             }
         };
+        const chunks = [];
         const onCustomMessage = (event) => {
-            dispatch(event.data);
+            const { chunk, end } = event.data;
+            chunks.push(chunk);
+            if (!end) {
+                return;
+            }
+
+            dispatch(JSON.parse(chunks.splice(0, chunks.length).join('')));
         };
         video.on('propValue', (propName, propValue) => {
             if (propName === 'stream') {
