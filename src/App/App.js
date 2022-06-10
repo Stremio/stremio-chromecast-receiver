@@ -12,6 +12,7 @@ const App = () => {
     React.useEffect(() => {
         const context = cast.framework.CastReceiverContext.getInstance();
         const video = new StremioVideo();
+        const chunks = [];
         const emit = (args) => {
             const serializedMessage = JSON.stringify(args, (_, value) => {
                 if (value instanceof Error) {
@@ -39,7 +40,7 @@ const App = () => {
             chunks.map((chunk, index) => {
                 context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, {
                     chunk,
-                    end: index === chunks.length - 1,
+                    last: index === chunks.length - 1,
                 });
             });
         };
@@ -63,11 +64,10 @@ const App = () => {
                 console.error('StremioVideo', error);
             }
         };
-        const chunks = [];
         const onCustomMessage = (event) => {
-            const { chunk, end } = event.data;
+            const { chunk, last } = event.data;
             chunks.push(chunk);
-            if (!end) {
+            if (!last) {
                 return;
             }
 
