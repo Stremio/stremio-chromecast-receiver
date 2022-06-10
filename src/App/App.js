@@ -4,7 +4,7 @@ const StremioVideo = require('@stremio/stremio-video');
 const styles = require('./styles');
 
 const CHROMECAST_NAMESPACE = 'urn:x-cast:com.stremio';
-const CHUNK_SIZE = 5000;
+const CHUNK_SIZE = 20000;
 
 const App = () => {
     const videoElementRef = React.useRef(null);
@@ -71,7 +71,20 @@ const App = () => {
                 return;
             }
 
-            dispatch(JSON.parse(chunks.splice(0, chunks.length).join('')));
+            let action;
+            try {
+                action = JSON.parse(chunks.splice(0, chunks.length).join(''));
+            } catch (error) {
+                emit({
+                    event: 'error',
+                    args: [Object.assign({}, StremioVideo.ERROR.CHROMECAST_SENDER_VIDEO.MESSAGE_SEND_FAILED, {
+                        error
+                    })]
+                });
+                return;
+            }
+
+            dispatch(action);
         };
         video.on('propValue', (propName, propValue) => {
             if (propName === 'stream') {
