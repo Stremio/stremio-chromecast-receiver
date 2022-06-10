@@ -37,10 +37,10 @@ const App = () => {
             }
 
             chunks.map((chunk, index) => {
-                context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, JSON.stringify({
+                context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, {
                     chunk,
                     end: index === chunks.length - 1,
-                }));
+                });
             });
         };
         const dispatch = (action) => {
