@@ -42,6 +42,6 @@
         "terser-webpack-plugin": "5.2.3",
         "webpack": "5.52.0",
         "webpack-cli": "4.8.0",
-        "webpack-dev-server": "4.1.1"
+        "webpack-dev-server": "4.9.2"
     }
 }
