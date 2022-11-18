@@ -1,5 +1,6 @@
 const React = require('react');
 const classnames = require('classnames');
+const hat = require('hat');
 const StremioVideo = require('@stremio/stremio-video');
 const styles = require('./styles');
 
@@ -38,9 +39,10 @@ const App = () => {
                 const chunk = serializedMessage.slice(start, start + CHUNK_SIZE);
                 chunks.push(chunk);
             }
-
+            const id = hat();
             chunks.map((chunk, index) => {
                 context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, {
+                    id,
                     chunk,
                     last: index === chunks.length - 1,
                 });
