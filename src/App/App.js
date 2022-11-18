@@ -14,6 +14,7 @@ const App = () => {
         const video = new StremioVideo();
         const chunks = [];
         const emit = (args) => {
+            // eslint-disable-next-line no-console
             console.log('emit', args);
             const serializedMessage = JSON.stringify(args, (_, value) => {
                 if (value instanceof Error) {
@@ -46,6 +47,7 @@ const App = () => {
             });
         };
         const dispatch = (action) => {
+            // eslint-disable-next-line no-console
             console.log('dispatch', action);
             try {
                 if (action && action.type === 'command' && action.commandName === 'load' && action.commandArgs) {
