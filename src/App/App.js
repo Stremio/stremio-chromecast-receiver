@@ -1,5 +1,6 @@
 const React = require('react');
 const classnames = require('classnames');
+const hat = require('hat');
 const StremioVideo = require('@stremio/stremio-video');
 const styles = require('./styles');
 
@@ -12,7 +13,7 @@ const App = () => {
     React.useEffect(() => {
         const context = cast.framework.CastReceiverContext.getInstance();
         const video = new StremioVideo();
-        const chunks = [];
+        const messages = {};
         const emit = (args) => {
             // eslint-disable-next-line no-console
             console.log('emit', args);
@@ -38,11 +39,13 @@ const App = () => {
                 const chunk = serializedMessage.slice(start, start + CHUNK_SIZE);
                 chunks.push(chunk);
             }
-
+            const id = hat();
             chunks.map((chunk, index) => {
                 context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, {
+                    id,
                     chunk,
-                    last: index === chunks.length - 1,
+                    index,
+                    length: chunks.length
                 });
             });
         };
@@ -69,15 +72,15 @@ const App = () => {
             }
         };
         const onCustomMessage = (event) => {
-            const { chunk, last } = event.data;
-            chunks.push(chunk);
-            if (!last) {
-                return;
-            }
-
-            let action;
             try {
-                action = JSON.parse(chunks.splice(0, chunks.length).join(''));
+                const { id, chunk, index, length } = event.data;
+                messages[id] = messages[id] || [];
+                messages[id][index] = chunk;
+                if (Object.keys(messages[id]).length === length) {
+                    const action = JSON.parse(messages[id].join(''));
+                    delete messages[id];
+                    dispatch(action);
+                }
             } catch (error) {
                 emit({
                     event: 'error',
@@ -85,10 +88,7 @@ const App = () => {
                         error
                     })]
                 });
-                return;
             }
-
-            dispatch(action);
         };
         video.on('propValue', (propName, propValue) => {
             if (propName === 'stream') {
