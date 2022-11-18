@@ -44,7 +44,8 @@ const App = () => {
                 context.sendCustomMessage(CHROMECAST_NAMESPACE, undefined, {
                     id,
                     chunk,
-                    last: index === chunks.length - 1,
+                    index,
+                    length: chunks.length
                 });
             });
         };
