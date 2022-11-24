@@ -47,6 +47,33 @@ const tests = [
             bitrate: 132700,
             samplerate: 48000
         }
+    },
+    {
+        type: 'media-source',
+        audio: {
+            contentType: 'audio/mp4; codecs="mp4a.40.2"',
+            channels: '5.1',
+            bitrate: 132700,
+            samplerate: 48000
+        }
+    },
+    {
+        type: 'media-source',
+        audio: {
+            contentType: 'audio/mp4; codecs="mp4a.40.2"',
+            channels: '7235.1',
+            bitrate: 132700,
+            samplerate: 48000
+        }
+    },
+    {
+        type: 'media-source',
+        audio: {
+            contentType: 'audio/mp4; codecs="mp4a.40.2"',
+            channels: 'channels',
+            bitrate: 132700,
+            samplerate: 48000
+        }
     }
 ].map((config) => navigator.mediaCapabilities.decodingInfo(config));
 
