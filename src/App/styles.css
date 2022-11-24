@@ -86,7 +86,7 @@ body {
 
 .app-container .layer.info-layer .label {
     flex: none;
-    max-height: 4.8em;
+    /* max-height: 4.8em; */
     text-align: center;
     color: hsla(0, 0%, 100%, 0.9);
 }
