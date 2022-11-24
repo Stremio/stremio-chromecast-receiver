@@ -106,8 +106,6 @@ const App = () => {
         });
         video.on('error', (error) => {
             emit({ event: 'error', args: [error] });
-            alert(JSON.stringify(error));
-            document.getElementById('error').innerText = JSON.stringify(error);
         });
         video.on('ended', () => {
             emit({ event: 'ended' });
@@ -144,9 +142,8 @@ const App = () => {
             {
                 !loaded ?
                     <div className={classnames(styles['layer'], styles['info-layer'])}>
-                        {/* <img className={styles['logo']} src={require('/images/stremio_symbol.png')} alt={' '} loading={'lazy'} /> */}
-                        <div className={styles['label']}>Stremio Chromecast Receiver development {process.env.COMMIT_HASH} {JSON.stringify(window.result)}</div>
-                        <div className={styles['label']} id={'error'} />
+                        <img className={styles['logo']} src={require('/images/stremio_symbol.png')} alt={' '} loading={'lazy'} />
+                        <div className={styles['label']}>Stremio Chromecast Receiver development {process.env.COMMIT_HASH}</div>
                     </div>
                     :
                     null
