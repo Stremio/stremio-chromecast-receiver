@@ -11,6 +11,10 @@ navigator.mediaCapabilities.decodingInfo({
         samplerate: 48000
     }
 }).then((aacResult) => {
-    window.aacResult = aacResult;
+    window.aacResult = {
+        supported: aacResult.supported,
+        powerEfficient: aacResult.powerEfficient,
+        smooth: aacResult.smooth
+    };
     ReactDOM.render(<App />, document.getElementById('app'));
 });
