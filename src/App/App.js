@@ -105,6 +105,7 @@ const App = () => {
             emit({ event: 'propChanged', args: [propName, propValue] });
         });
         video.on('error', (error) => {
+            alert(error);
             emit({ event: 'error', args: [error] });
         });
         video.on('ended', () => {
