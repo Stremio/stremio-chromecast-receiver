@@ -145,7 +145,7 @@ const App = () => {
                 !loaded ?
                     <div className={classnames(styles['layer'], styles['info-layer'])}>
                         <img className={styles['logo']} src={require('/images/stremio_symbol.png')} alt={' '} loading={'lazy'} />
-                        <div className={styles['label']}>Stremio Chromecast Receiver development {process.env.COMMIT_HASH} {JSON.stringify(window.aacResult)}</div>
+                        <div className={styles['label']}>Stremio Chromecast Receiver development {process.env.COMMIT_HASH} {JSON.stringify(window.result)}</div>
                         <div className={styles['label']} id={'error'} />
                     </div>
                     :
