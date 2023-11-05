@@ -54,13 +54,7 @@ const App = () => {
             console.log('dispatch', action);
             try {
                 if (action && action.type === 'command' && action.commandName === 'load' && action.commandArgs) {
-                    video.dispatch({
-                        ...action,
-                        commandArgs: {
-                            ...action.commandArgs,
-                            audioChannels: 2
-                        }
-                    }, {
+                    video.dispatch(action, {
                         containerElement: videoElementRef.current
                     });
                     return;
