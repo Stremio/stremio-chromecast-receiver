@@ -1,6 +1,6 @@
 {
     "name": "stremio-chromecast-receiver",
-    "version": "0.0.16-rc.2",
+    "version": "0.0.17",
     "description": "Chromecast Receiver application for Stremio",
     "author": "Smart Code OOD",
     "license": "MIT",
@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@babel/runtime": "7.15.4",
-        "@stremio/stremio-video": "0.0.26",
+        "@stremio/stremio-video": "0.0.39",
         "buffer": "6.0.3",
         "classnames": "2.3.1",
         "hat": "0.0.3",
